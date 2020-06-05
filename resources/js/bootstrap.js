@@ -21,6 +21,7 @@ require("material-dashboard/assets/js/plugins/bootstrap-notify.js");
 window.Chartist = require("material-dashboard/assets/js/plugins/chartist.min.js");
 window.PerfectScrollbar = require("material-dashboard/assets/js/plugins/perfect-scrollbar.jquery.min.js");
 require("material-dashboard/assets/js/material-dashboard.js");
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

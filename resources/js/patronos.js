@@ -4,9 +4,24 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
+
+import VueTheMask from "vue-the-mask";
+window.Vue.use(VueTheMask);
+
+window.events = new Vue();
+
+window.flash = function(message, level = "success") {
+    window.events.$emit("flash", { message, level });
+};
+
+window.swal = require("sweetalert2");
+
+window.moment = require("moment");
+
+window.Chart = require("chart.js");
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +34,33 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Patrons
+Vue.component(
+    "create-update-patron-component",
+    require("./components/Patrons/CreateUpdate.vue").default
+);
+Vue.component(
+    "profile-patron-component",
+    require("./components/Patrons/Profile.vue").default
+);
+
+// Utilities
+Vue.component("flash", require("./components/Utilities/Flash.vue").default);
+Vue.component(
+    "chart-bar",
+    require("./components/Utilities/ChartBar.vue").default
+);
+Vue.component(
+    "chart-pie",
+    require("./components/Utilities/ChartPie.vue").default
+);
+Vue.component(
+    "submit-button",
+    require("./components/Utilities/SubmitButton.vue").default
+);
+Vue.component("croppie", require("./components/Utilities/Croppie.vue").default);
+Vue.component("multiselect", require("vue-multiselect").default);
+require("vue-multiselect/dist/vue-multiselect.min.css");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +69,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
 });

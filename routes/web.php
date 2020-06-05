@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Dashboard Routes
 Route::get('/', 'DashboardController@index')->name('dashboard.index')->middleware(['auth']);
+
+// Patron Dashboard
+Route::resource('patrons', 'PatronController')->middleware(['auth']);
 
 // Auth Routes
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

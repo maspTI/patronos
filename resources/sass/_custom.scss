@@ -65,6 +65,14 @@ body {
     background: $masp;
 }
 
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "Escolher";
+    color: #fff;
+    background-color: $masp;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
 .ps-container {
     touch-action: auto;
     overflow: auto !important;
