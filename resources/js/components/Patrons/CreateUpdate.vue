@@ -190,7 +190,7 @@
                                     :phone="phone"
                                     :key="phone.id"
                                 />
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
                                         type="button"
@@ -223,7 +223,7 @@
                                     event="remove-email"
                                     :key="email.id"
                                 />
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
                                         type="button"
@@ -244,6 +244,17 @@
             </div>
             <div class="col-md-12"><hr /></div>
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Co-Titular</h4>
+                    </div>
+                    <create-update-copatron-component
+                        :copatron="form.copatron"
+                    />
+                </div>
+            </div>
+            <div class="col-md-12"><hr /></div>
+            <div class="container-fluid">
                 <div class="row d-flex align-items-start">
                     <div class="col-md-6">
                         <div class="container-fluid">
@@ -260,7 +271,7 @@
                                     event="remove-dependent"
                                     :key="dependent.id"
                                 />
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
                                         type="button"
@@ -292,7 +303,7 @@
                                     event="remove-social_media"
                                     :key="social_media.id"
                                 />
-                                <div class="col-md-12">
+                                <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
                                         type="button"
@@ -322,7 +333,7 @@
                         :key="secretary.id"
                         :secretary="secretary"
                     />
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <button
                             class="btn btn-success"
                             type="button"
@@ -350,7 +361,7 @@
                         :key="address.id"
                         :address="address"
                     />
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <button
                             class="btn btn-success"
                             type="button"
@@ -373,17 +384,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12"><hr /></div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>Co-Titular</h4>
-                    </div>
-                    <create-update-copatron-component
-                        :copatron="form.copatron"
-                    />
-                </div>
-            </div>
+
             <submit-button />
         </div>
     </form>

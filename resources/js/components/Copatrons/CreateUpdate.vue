@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="form-group bmd-form-group">
                     <label for="copatron-name" class="bmd-label-floating"
                         >Nome</label
@@ -17,18 +17,6 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group bmd-form-group">
-                    <label for="">Data Nascimento</label>
-                    <date-picker
-                        lang="pt-br"
-                        format="DD/MM/YYYY"
-                        input-class="form-control"
-                        width="100%"
-                        v-model="form.birthday"
-                    ></date-picker>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group bmd-form-group">
                     <label for="copatron-email" class="bmd-label-floating"
                         >Email</label
                     ><input
@@ -38,6 +26,18 @@
                         class="form-control"
                         v-model="form.email"
                     />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group bmd-form-group">
+                    <label for="">Data Nascimento</label>
+                    <date-picker
+                        lang="pt-br"
+                        format="DD/MM/YYYY"
+                        input-class="form-control"
+                        width="100%"
+                        v-model="form.birthday"
+                    ></date-picker>
                 </div>
             </div>
         </div>
