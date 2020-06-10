@@ -34,6 +34,18 @@ window.Chart = require("chart.js");
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+// Addresses
+Vue.component(
+    "create-update-address-component",
+    require("./components/Addresses/CreateUpdate.vue").default
+);
+
+// Co-Patrons
+Vue.component(
+    "create-update-copatron-component",
+    require("./components/Copatrons/CreateUpdate.vue").default
+);
+
 // Patrons
 Vue.component(
     "create-update-patron-component",
@@ -44,8 +56,22 @@ Vue.component(
     require("./components/Patrons/Profile.vue").default
 );
 
+// Secretaries
+Vue.component(
+    "create-update-secretary-component",
+    require("./components/Secretaries/CreateUpdate.vue").default
+);
+
 // Utilities
 Vue.component("flash", require("./components/Utilities/Flash.vue").default);
+Vue.component(
+    "add-remove-buttons",
+    require("./components/Utilities/AddRemoveButtons.vue").default
+);
+Vue.component(
+    "add-component",
+    require("./components/Utilities/AddComponent.vue").default
+);
 Vue.component(
     "chart-bar",
     require("./components/Utilities/ChartBar.vue").default
@@ -59,6 +85,9 @@ Vue.component(
     require("./components/Utilities/SubmitButton.vue").default
 );
 Vue.component("croppie", require("./components/Utilities/Croppie.vue").default);
+Vue.component("phone", require("./components/Utilities/Phone.vue").default);
+Vue.component("general", require("./components/Utilities/General.vue").default);
+
 Vue.component("multiselect", require("vue-multiselect").default);
 require("vue-multiselect/dist/vue-multiselect.min.css");
 

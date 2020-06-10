@@ -16,4 +16,11 @@ class Patron extends Model
         'secretaries', 'dependents', 'social_medias',
         'pointed_by', 'bio', 'status'
     ];
+
+    protected $casts = [
+        'phones' => 'array',
+        'secretaries' => 'array',
+        'dependents' => 'array',
+        'social_medias' => 'array',
+    ];
 }
