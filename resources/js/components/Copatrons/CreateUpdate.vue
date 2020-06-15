@@ -3,9 +3,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group bmd-form-group">
-                    <label for="copatron-name" class="bmd-label-floating"
-                        >Nome</label
-                    >
+                    <label for="copatron-name">Nome</label>
                     <input
                         type="text"
                         name="copatron-name"
@@ -17,8 +15,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group bmd-form-group">
-                    <label for="copatron-email" class="bmd-label-floating"
-                        >Email</label
+                    <label for="copatron-email">Email</label
                     ><input
                         type="email"
                         name="copatron-email"

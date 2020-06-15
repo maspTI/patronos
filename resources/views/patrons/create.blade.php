@@ -10,7 +10,12 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                <create-update-patron-component :categories="{{ $categories }}"></create-update-patron-component>
+                <create-update-patron-component
+                    :categories="{{ $categories }}"
+                    http_verb="post"
+                    url="/patrons"
+                    message="Pessoa Física criada com sucesso!"
+                ></create-update-patron-component>
             </div>
         </div>
     </div>

@@ -1,5 +1,9 @@
 <template>
-    <form class="container-fluid">
+    <form
+        class="container-fluid"
+        @keydown="form.errors.clear($event.target.name)"
+        @submit.prevent="send"
+    >
         <croppie />
         <div class="row">
             <div class="col-md-12"><hr /></div>
@@ -12,7 +16,7 @@
                         type="text"
                         name="name"
                         id="name"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.name"
                     />
                     <small
@@ -28,7 +32,7 @@
                     <date-picker
                         lang="pt-br"
                         format="DD/MM/YYYY"
-                        input-class="form-control"
+                        input-class="form-control text-capitalize"
                         width="100%"
                         v-model="form.birthday"
                     ></date-picker>
@@ -46,14 +50,14 @@
                         type="text"
                         name="cpf"
                         id="cpf"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.cpf"
                         :mask="['###.###.###-##']"
                     />
                     <small
                         class="text-danger"
-                        v-text="form.errors.get('occupation')"
-                        v-if="form.errors.has('occupation')"
+                        v-text="form.errors.get('cpf')"
+                        v-if="form.errors.has('cpf')"
                     ></small>
                 </div>
             </div>
@@ -66,7 +70,7 @@
                         type="text"
                         name="occupation"
                         id="occupation"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.occupation"
                     />
                     <small
@@ -85,7 +89,7 @@
                         type="text"
                         name="company"
                         id="company"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.company"
                     />
                     <small
@@ -111,8 +115,8 @@
                     />
                     <small
                         class="text-danger"
-                        v-text="form.errors.get('categories')"
-                        v-if="form.errors.has('categories')"
+                        v-text="form.errors.get('marital_status')"
+                        v-if="form.errors.has('marital_status')"
                     ></small>
                 </div>
             </div>
@@ -146,7 +150,7 @@
                         type="text"
                         name="pointed_by"
                         id="pointed_by"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.pointed_by"
                     />
                     <small
@@ -164,7 +168,7 @@
                             >Curto texto sobre o patrono.</label
                         >
                         <textarea
-                            class="form-control"
+                            class="form-control text-uppercase"
                             rows="5"
                             v-model="form.bio"
                         ></textarea>
@@ -190,6 +194,13 @@
                                     :phone="phone"
                                     :key="phone.id"
                                 />
+                                <div class="col-md-12">
+                                    <small
+                                        class="text-danger"
+                                        v-text="form.errors.get('phones')"
+                                        v-if="form.errors.has('phones')"
+                                    ></small>
+                                </div>
                                 <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
@@ -223,6 +234,13 @@
                                     event="remove-email"
                                     :key="email.id"
                                 />
+                                <div class="col-md-12">
+                                    <small
+                                        class="text-danger"
+                                        v-text="form.errors.get('emails')"
+                                        v-if="form.errors.has('emails')"
+                                    ></small>
+                                </div>
                                 <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
@@ -248,8 +266,30 @@
                     <div class="col-md-12">
                         <h4>Co-Titular</h4>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input
+                                        class="form-check-input"
+                                        name="recorrente"
+                                        id="recorrente"
+                                        type="checkbox"
+                                        v-model="form.has_copatron"
+                                    />
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                    <label for="recorrente"
+                                        >Adicionar Co-Titular</label
+                                    >
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <create-update-copatron-component
                         :copatron="form.copatron"
+                        v-if="form.has_copatron"
                     />
                 </div>
             </div>
@@ -271,6 +311,13 @@
                                     event="remove-dependent"
                                     :key="dependent.id"
                                 />
+                                <div class="col-md-12">
+                                    <small
+                                        class="text-danger"
+                                        v-text="form.errors.get('dependents')"
+                                        v-if="form.errors.has('dependents')"
+                                    ></small>
+                                </div>
                                 <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
@@ -303,6 +350,15 @@
                                     event="remove-social_media"
                                     :key="social_media.id"
                                 />
+                                <div class="col-md-12">
+                                    <small
+                                        class="text-danger"
+                                        v-text="
+                                            form.errors.get('social_medias')
+                                        "
+                                        v-if="form.errors.has('social_medias')"
+                                    ></small>
+                                </div>
                                 <div class="col-md-12 mt-2">
                                     <button
                                         class="btn btn-success"
@@ -333,6 +389,13 @@
                         :key="secretary.id"
                         :secretary="secretary"
                     />
+                    <div class="col-md-12">
+                        <small
+                            class="text-danger"
+                            v-text="form.errors.get('secretaries')"
+                            v-if="form.errors.has('secretaries')"
+                        ></small>
+                    </div>
                     <div class="col-md-12 mt-2">
                         <button
                             class="btn btn-success"
@@ -361,6 +424,13 @@
                         :key="address.id"
                         :address="address"
                     />
+                    <div class="col-md-12">
+                        <small
+                            class="text-danger"
+                            v-text="form.errors.get('addresses')"
+                            v-if="form.errors.has('addresses')"
+                        ></small>
+                    </div>
                     <div class="col-md-12 mt-2">
                         <button
                             class="btn btn-success"
@@ -384,7 +454,6 @@
                     </div>
                 </div>
             </div>
-
             <submit-button />
         </div>
     </form>
@@ -396,7 +465,7 @@ export default {
     components: {
         DatePicker,
     },
-    props: ["categories"],
+    props: ["categories", "http_verb", "url", "message", "patron"],
     data() {
         return {
             form: new Form({
@@ -415,11 +484,13 @@ export default {
                 social_medias: [],
                 secretaries: [],
                 addresses: [],
+                marital_status: {},
                 copatron: {
                     name: "",
                     email: "",
                     birthday: "",
                 },
+                has_copatron: false,
             }),
             marital_status: [
                 {
@@ -452,6 +523,74 @@ export default {
                     .substring(2, 12);
             this.form[data].push(properties);
         },
+        send: _.throttle(
+            function() {
+                window.events.$emit("loading", true);
+                let addresses = this.form.addresses.filter((address) => {
+                    return (
+                        address.name == "" ||
+                        address.zip_code == "" ||
+                        address.street == "" ||
+                        address.number == "" ||
+                        address.neighborhood == "" ||
+                        address.city == "" ||
+                        address.state == ""
+                    );
+                });
+                if (addresses.length) {
+                    swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text:
+                            "Preencha os campos obrigatórios do(s) endereço(s).",
+                    });
+                    window.events.$emit("loading", false);
+                    return;
+                }
+
+                let secretaries = this.form.secretaries.filter((secretary) => {
+                    return secretary.name == "";
+                });
+
+                if (secretaries.length) {
+                    swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Preencha os campos na seção Secretários(as).",
+                    });
+                    window.events.$emit("loading", false);
+                    return;
+                }
+
+                if (this.form.has_copatron) {
+                    if (
+                        this.form.copatron.name == "" ||
+                        this.form.copatron.email == "" ||
+                        this.form.copatron.birthday == ""
+                    ) {
+                        window.flash(
+                            "Preencha todos os campos do Co-Titular",
+                            "danger"
+                        );
+                        window.events.$emit("loading", false);
+                        return;
+                    }
+                }
+
+                this.form[this.http_verb](this.url)
+                    .then((result) => {
+                        window.events.$emit("loading", false);
+                        window.flash(this.message);
+                        window.location = "/patrons";
+                    })
+                    .catch((errors) => {
+                        window.events.$emit("loading", false);
+                        window.flash("Algo deu errado.", "danger");
+                    });
+            },
+            500,
+            { trailing: false }
+        ),
     },
     created() {
         window.events.$on("avatar", (avatar) => {

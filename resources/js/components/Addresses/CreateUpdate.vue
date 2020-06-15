@@ -3,7 +3,7 @@
         <div class="row" v-if="edit">
             <div class="col-md-2">
                 <div class="form-group bmd-form-group">
-                    <label for="">Nome</label>
+                    <label for="">Nome*</label>
                     <input
                         type="text"
                         name="address-name"
@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label for="address-zip_code">País</label>
+                    <label for="address-zip_code">País*</label>
                     <multiselect
                         track-by="name"
                         label="name"
@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-2">
                 <div class="form-group bmd-form-group">
-                    <label for="address-zip_code">CEP</label>
+                    <label for="address-zip_code">CEP*</label>
                     <input
                         type="text"
                         name="address-zip_code"
@@ -56,7 +56,7 @@
             </div>
             <div class="col-md-5">
                 <div class="form-group bmd-form-group">
-                    <label for="address-street">Rua</label>
+                    <label for="address-street">Rua*</label>
                     <input
                         type="text"
                         name="address-street"
@@ -68,7 +68,7 @@
             </div>
             <div class="col-md-2">
                 <div class="form-group bmd-form-group">
-                    <label for="address-number">Número</label>
+                    <label for="address-number">Número*</label>
                     <input
                         type="text"
                         name="address-number"
@@ -80,7 +80,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group bmd-form-group">
-                    <label for="address-neighborhood">Bairro</label>
+                    <label for="address-neighborhood">Bairro*</label>
                     <input
                         type="text"
                         name="address-neighborhood"
@@ -104,7 +104,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group bmd-form-group">
-                    <label for="address-city">Cidade</label>
+                    <label for="address-city">Cidade*</label>
                     <input
                         type="text"
                         name="address-city"
@@ -116,7 +116,7 @@
             </div>
             <div class="col-md-1">
                 <div class="form-group bmd-form-group">
-                    <label for="address-state">Estado</label>
+                    <label for="address-state">Estado*</label>
                     <input
                         type="text"
                         name="address-state"

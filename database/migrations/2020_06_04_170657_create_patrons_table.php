@@ -15,21 +15,21 @@ class CreatePatronsTable extends Migration
     {
         Schema::create('patrons', function (Blueprint $table) {
             $table->id();
+            $table->longText('avatar');
             $table->string('name');
-            $table->string('avatar');
             $table->date('birthday');
             $table->string('cpf', 11)->unique()->index();
-            $table->string('marital_status');
-            $table->json('emails')->nullable();
+            $table->string('marital_status')->nullable();
             $table->string('occupation')->nullable();
             $table->string('company')->nullable();
+            $table->json('emails')->nullable();
             $table->json('phones')->nullable();
             $table->json('secretaries')->nullable();
             $table->json('dependents')->nullable();
             $table->json('social_medias')->nullable();
             $table->string('pointed_by')->nullable();
             $table->longText('bio')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

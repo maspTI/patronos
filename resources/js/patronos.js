@@ -52,6 +52,14 @@ Vue.component(
     require("./components/Patrons/CreateUpdate.vue").default
 );
 Vue.component(
+    "index-patron-component",
+    require("./components/Patrons/Index.vue").default
+);
+Vue.component(
+    "modal-patron",
+    require("./components/Patrons/Modal.vue").default
+);
+Vue.component(
     "profile-patron-component",
     require("./components/Patrons/Profile.vue").default
 );

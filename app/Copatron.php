@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Copatron extends Model
 {
-    protected $fillable = ['name','email','applicable_to'];
+    protected $fillable = ['patron_id','name','email','birthday'];
+
     /**
      *
      */
-    public function patrons()
+    public function patron()
     {
         return $this->belongsTo(Patron::class);
     }

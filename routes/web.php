@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 // Dashboard Routes
 Route::get('/', 'DashboardController@index')->name('dashboard.index')->middleware(['auth']);
 
-// Patron Dashboard
+// Categories Routes
+Route::resource('categories', 'CategoryController')->middleware(['auth']);
+
+// Patron Routes
 Route::resource('patrons', 'PatronController')->middleware(['auth']);
 
 // Auth Routes
