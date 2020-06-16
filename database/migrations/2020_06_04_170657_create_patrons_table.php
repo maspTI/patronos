@@ -15,11 +15,11 @@ class CreatePatronsTable extends Migration
     {
         Schema::create('patrons', function (Blueprint $table) {
             $table->id();
-            $table->longText('avatar');
+            $table->longText('avatar')->nullable();
             $table->string('name');
             $table->date('birthday');
             $table->string('cpf', 11)->unique()->index();
-            $table->string('marital_status')->nullable();
+            $table->json('marital_status')->nullable();
             $table->string('occupation')->nullable();
             $table->string('company')->nullable();
             $table->json('emails')->nullable();
@@ -27,6 +27,7 @@ class CreatePatronsTable extends Migration
             $table->json('secretaries')->nullable();
             $table->json('dependents')->nullable();
             $table->json('social_medias')->nullable();
+            $table->json('addresses')->nullable();
             $table->string('pointed_by')->nullable();
             $table->longText('bio')->nullable();
             $table->integer('status')->default(1);

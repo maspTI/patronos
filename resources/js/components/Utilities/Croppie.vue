@@ -58,6 +58,7 @@
 <script>
 import { Cropper, CircleStencil } from "vue-advanced-cropper";
 export default {
+    props: ["avatar"],
     data() {
         return {
             image: null,
@@ -106,6 +107,12 @@ export default {
             }
             window.flash("Esolha uma imagem.", "danger");
         },
+    },
+    created() {
+        if (this.avatar) {
+            this.image = this.avatar;
+            this.cropped = true;
+        }
     },
 };
 </script>

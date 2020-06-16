@@ -15,7 +15,7 @@ class Patron extends Model
         'cpf', 'marital_status', 'emails',
         'occupation', 'company', 'phones',
         'secretaries', 'dependents', 'social_medias',
-        'pointed_by', 'bio', 'status'
+        'pointed_by', 'bio', 'status', 'addresses'
     ];
 
     protected $casts = [
@@ -24,6 +24,8 @@ class Patron extends Model
         'dependents' => 'array',
         'social_medias' => 'array',
         'secretaries' => 'array',
+        'marital_status' => 'array',
+        'addresses' => 'array',
     ];
 
     /**
@@ -42,13 +44,15 @@ class Patron extends Model
         return Str::title($value);
     }
 
-    /**
-     * Get all of the patron's addresses.
-     */
-    public function addresses()
-    {
-        return $this->morphMany(Address::class, 'addresstable');
-    }
+    // /**
+    //  *
+    //  */
+    // public function getCpfAttribute($value)
+    // {
+    //     $value = substr_replace($value, '.', 3, 0);
+    //     $value = substr_replace($value, '.', 7, 0);
+    //     return substr_replace($value, '-', -2, 0);
+    // }
 
     /**
      *
@@ -86,7 +90,7 @@ class Patron extends Model
                 return $query->where('status', $search['status']);
             }
         })
-        ->with(['copatron', 'categories', 'addresses'])
+        ->with(['copatron', 'categories'])
         ->orderBy('name')
         ->paginate($search['paginate']);
     }

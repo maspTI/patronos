@@ -278,6 +278,7 @@ export default {
     },
     created() {
         this.getCountries();
+        this.edit = this.form.name != "" ? false : true;
     },
 };
 </script>

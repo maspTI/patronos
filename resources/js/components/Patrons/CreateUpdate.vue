@@ -4,7 +4,7 @@
         @keydown="form.errors.clear($event.target.name)"
         @submit.prevent="send"
     >
-        <croppie />
+        <croppie :avatar="patron ? form.avatar : undefined" />
         <div class="row">
             <div class="col-md-12"><hr /></div>
         </div>
@@ -128,6 +128,7 @@
                         label="name"
                         :options="categories"
                         :multiple="true"
+                        :close-on-select="false"
                         placeholder="Selecione o plano"
                         selectLabel=""
                         deselectLabel=""
@@ -494,19 +495,19 @@ export default {
             }),
             marital_status: [
                 {
-                    name: "Solteiro",
+                    name: "Solteiro(a)",
                     value: "single",
                 },
                 {
-                    name: "Casado",
+                    name: "Casado(a)",
                     value: "married",
                 },
                 {
-                    name: "Viúvo",
-                    value: "widower",
+                    name: "Viúvo(a)",
+                    value: "widow(er)",
                 },
                 {
-                    name: "Divorciado",
+                    name: "Divorciado(a)",
                     value: "divorced",
                 },
             ],
@@ -593,9 +594,28 @@ export default {
         ),
     },
     created() {
+        if (this.patron) {
+            if (this.patron.copatron) {
+                this.patron.has_copatron = true;
+                this.patron.copatron.birthday = moment(
+                    this.patron.copatron.birthday
+                ).format();
+            } else {
+                this.patron.has_copatron = false;
+                this.patron.copatron = {
+                    name: "",
+                    email: "",
+                    birthday: "",
+                };
+            }
+            this.patron.birthday = moment(this.patron.birthday).format();
+            this.form = new Form(this.patron);
+        }
+
         window.events.$on("avatar", (avatar) => {
             this.form.avatar = avatar;
         });
+
         window.events.$on("remove-avatar", () => {
             this.form.avatar = "";
         });

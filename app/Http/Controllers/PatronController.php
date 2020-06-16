@@ -7,6 +7,7 @@ use App\Category;
 use App\Rules\CPF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PatronController extends Controller
 {
@@ -55,12 +56,13 @@ class PatronController extends Controller
             'occupation' => strtolower(request('occupation')),
             'company' => strtolower(request('company')),
             'pointed_by' => strtolower(request('pointed_by')),
-            'phones' => count(request('phones')) == 0 ? null : (request('phones')),
-            'emails' => count(request('emails')) == 0 ? null : (request('emails')),
-            'social_medias' => count(request('social_medias')) == 0 ? null : (request('social_medias')),
-            'secretaries' => count(request('secretaries')) == 0 ? null : (request('secretaries')),
-            'dependents' => count(request('dependents')) == 0 ? null : (request('dependents')),
-            'marital_status' => request('marital_status')['value'],
+            'phones' => request('phones'),
+            'emails' => request('emails'),
+            'social_medias' => request('social_medias'),
+            'secretaries' => request('secretaries'),
+            'dependents' => request('dependents'),
+            'addresses' => request('addresses'),
+            'marital_status' => request('marital_status'),
         ]);
 
         if (request('has_copatron')) {
@@ -72,12 +74,6 @@ class PatronController extends Controller
         }
 
         $patron->categories()->attach(collect(request('categories'))->pluck('id')->all());
-
-        array_map(function ($address) {
-            $address['country'] = json_encode($address['country']);
-        }, request('addresses'));
-
-        $patron->addresses()->createMany(request('addresses'));
     }
 
     /**
@@ -88,7 +84,7 @@ class PatronController extends Controller
      */
     public function show(Patron $patron)
     {
-        $patron = Patron::whereId($patron->id)->with(['addresses', 'copatron', 'categories'])->first();
+        $patron = Patron::whereId($patron->id)->with(['copatron', 'categories'])->first();
         return view('patrons.show')->with(['patron' => $patron]);
     }
 
@@ -100,7 +96,11 @@ class PatronController extends Controller
      */
     public function edit(Patron $patron)
     {
-        //
+        $patron = Patron::whereId($patron->id)->with(['copatron', 'categories'])->first();
+        return view('patrons.edit')->with([
+            'patron' => $patron,
+            'categories' => Category::where('applicable_to', 'patron')->get()
+        ]);
     }
 
     /**
@@ -112,7 +112,50 @@ class PatronController extends Controller
      */
     public function update(Request $request, Patron $patron)
     {
-        //
+        $this->validateRequest($request, $patron);
+
+        $patron->update([
+            'avatar' => request('avatar'),
+            'name' => strtolower(request('name')),
+            'birthday' => new Carbon(request('birthday')),
+            'cpf' => request('cpf'),
+            'bio' => strtolower(request('bio')),
+            'occupation' => strtolower(request('occupation')),
+            'company' => strtolower(request('company')),
+            'pointed_by' => strtolower(request('pointed_by')),
+            'phones' => request('phones'),
+            'emails' => request('emails'),
+            'social_medias' => request('social_medias'),
+            'secretaries' => request('secretaries'),
+            'dependents' => request('dependents'),
+            'addresses' => request('addresses'),
+            'marital_status' => request('marital_status'),
+        ]);
+
+        $patron->fresh();
+
+        if ($patron->copatron && request('has_copatron')) {
+            $patron->copatron()->update([
+                'name' => request('copatron')['name'],
+                'email' => request('copatron')['email'],
+                'birthday' => new Carbon(request('copatron')['birthday']),
+            ]);
+            return;
+        }
+
+        if ($patron->copatron && !request('has_copatron')) {
+            $patron->copatron()->delete();
+            return;
+        }
+
+        if (!$patron->copatron && request('has_copatron')) {
+            $patron->copatron()->create([
+                'name' => request('copatron')['name'],
+                'email' => request('copatron')['email'],
+                'birthday' => new Carbon(request('copatron')['birthday']),
+            ]);
+            return;
+        }
     }
 
     /**
@@ -135,7 +178,12 @@ class PatronController extends Controller
             'avatar' =>  "nullable",
             'name' =>  "required|max:250",
             'birthday' =>  "required|max:250",
-            'cpf' =>  ["required", 'max:11', 'unique:patrons,cpf', new CPF],
+            'cpf' =>  [
+                "required",
+                'max:11',
+                $patron ? Rule::unique('patrons')->ignore($patron->id) : 'unique:patrons,cpf',
+                new CPF
+            ],
             'bio' =>  "nullable",
             'occupation' =>  "nullable|max:255",
             'company' =>  "nullable|max:255",
