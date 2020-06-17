@@ -80,12 +80,11 @@ export default {
                     })
                     .then((result) => {
                         this.patron.status = result.data.status;
-                        this.patron.holder = result.data.holder;
                         window.flash("Status alterado com sucesso!");
                     })
                     .catch((errors) =>
                         window.flash(
-                            "Aldo deu errado. Contate o setor de TI",
+                            "Aldo deu errado. Contate o setor de TI.",
                             "danger"
                         )
                     );

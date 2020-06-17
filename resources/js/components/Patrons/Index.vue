@@ -41,13 +41,10 @@ export default {
             patrons: [],
             paginate: {},
             filters: {
-                department: "all",
                 paginate: 10,
                 search: "",
-                status: "all",
-                brand: "all",
+                status: "1",
                 category: "all",
-                seller: "all",
             },
         };
     },

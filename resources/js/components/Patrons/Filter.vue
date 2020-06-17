@@ -76,14 +76,10 @@ export default {
             filters: {
                 paginate: 10,
                 search: "",
-                status: "all",
-                brand: "all",
+                status: "1",
                 category: "all",
-                seller: "all",
             },
-            brands: [],
             categories: [],
-            sellers: [],
         };
     },
     methods: {

@@ -112,6 +112,10 @@ class PatronController extends Controller
      */
     public function update(Request $request, Patron $patron)
     {
+        if (request()->has('change_status')) {
+            return $patron->changeStatus()->fresh();
+        }
+
         $this->validateRequest($request, $patron);
 
         $patron->update([
