@@ -23,4 +23,14 @@ class Category extends Model
     {
         return $this->hasMany(Sponsor::class);
     }
+
+    /**
+     *
+     */
+    public function search(array $search = null)
+    {
+        return $this->where('applicable_to', 'LIKE', $search['search'] == '' ? '%%' : "%{$search['search']}%")
+            ->where('status', $search['status'])
+            ->get();
+    }
 }

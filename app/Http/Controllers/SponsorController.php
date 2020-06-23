@@ -17,7 +17,11 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->wantsJson()) {
+            $sponsors = new Sponsor;
+            return $sponsors->search(request()->all());
+        }
+        return view('sponsors.index');
     }
 
     /**

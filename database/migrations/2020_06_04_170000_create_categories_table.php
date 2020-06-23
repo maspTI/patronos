@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('applicable_to');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

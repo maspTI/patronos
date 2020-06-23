@@ -1,6 +1,6 @@
 <template>
     <div class="row d-flex align-items-end">
-        <div class="col-md-3">
+        <div class="col-md-6">
             <div class="form-group bmd-form-group">
                 <label for="search" class="bmd-label-floating">Busca</label>
                 <input
@@ -67,6 +67,27 @@
                 </select>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="form-group bmd-form-group">
+                <label for="status">Projeto</label>
+                <select
+                    name="project"
+                    id="project"
+                    class="form-control text-capitalize"
+                    v-model="filters.project"
+                    @change="search"
+                >
+                    <option value="all">Todos</option>
+                    <option
+                        class="text-capitalize"
+                        v-for="project in projects"
+                        :value="project.name"
+                        :key="project.id"
+                        v-text="project.name"
+                    ></option>
+                </select>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -78,8 +99,10 @@ export default {
                 search: "",
                 status: "1",
                 category: "all",
+                project: "all",
             },
             categories: [],
+            projects: [],
         };
     },
     methods: {
@@ -98,7 +121,8 @@ export default {
         },
     },
     created() {
-        this.fetch("categories", "search=patron");
+        this.fetch("categories", "search=sponsor&status=1");
+        this.fetch("projects", "status=1");
     },
 };
 </script>

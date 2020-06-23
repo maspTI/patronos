@@ -14,7 +14,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->wantsJson()) {
+            $projects = new Project;
+            return $projects->search(request()->all());
+        }
     }
 
     /**

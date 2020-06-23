@@ -22,6 +22,9 @@ Route::resource('categories', 'CategoryController')->middleware(['auth']);
 // Patron Routes
 Route::resource('patrons', 'PatronController')->middleware(['auth']);
 
+// Project Routes
+Route::resource('projects', 'ProjectController')->middleware(['auth']);
+
 // Sponsor Routes
 Route::resource('sponsors', 'SponsorController')->middleware(['auth']);
 

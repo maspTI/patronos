@@ -15,4 +15,13 @@ class Project extends Model
     {
         return $this->hasMany(Sponsor::class);
     }
+
+    /**
+     *
+     */
+    public function search(array $search = null)
+    {
+        return $this->where('status', $search['status'])
+            ->get();
+    }
 }

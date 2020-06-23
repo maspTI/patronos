@@ -229,7 +229,10 @@ export default {
                 .catch((errors) => console.error(errors));
         },
         getAddress() {
-            if (this.form.country.name == "Brasil") {
+            if (
+                this.form.country.name == "Brasil" &&
+                this.form.zip_code.length != ""
+            ) {
                 window.axios
                     .get(`https://viacep.com.br/ws/${this.form.zip_code}/json/`)
                     .then((result) => {

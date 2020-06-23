@@ -38,4 +38,33 @@ class Sponsor extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     *
+     */
+    public function search(array $search = null)
+    {
+        return $this->where(function ($query) use ($search) {
+            $query->where('razao_social', 'LIKE', $search['search'] == '' ? '%%' : "%{$search['search']}%")
+                ->orWhere('nome_fantasia', 'LIKE', $search['search'] == '' ? '%%' : "%{$search['search']}%")
+                ->orWhere('cnpj', 'LIKE', $search['search'] == '' ? '%%' : "%{$search['search']}%");
+        })
+        ->whereHas('category', function ($query) use ($search) {
+            $query->where('name', 'LIKE', $search['category'] == 'all' ? '%%' : "%{$search['category']}%");
+        })
+        ->whereHas('project', function ($query) use ($search) {
+            $query->where('name', 'LIKE', $search['project'] == 'all' ? '%%' : "%{$search['project']}%");
+        })
+        ->where(function ($query) use ($search) {
+            if ($search['status'] == '1') {
+                return $query->where('status', $search['status']);
+            }
+            if ($search['status'] == '0') {
+                return $query->where('status', $search['status']);
+            }
+        })
+        ->with(['category', 'project'])
+        ->orderBy('nome_fantasia')
+        ->paginate($search['paginate']);
+    }
 }

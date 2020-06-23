@@ -75,6 +75,14 @@ Vue.component(
     "create-update-sponsor-component",
     require("./components/Sponsors/CreateUpdate.vue").default
 );
+Vue.component(
+    "index-sponsor-component",
+    require("./components/Sponsors/Index.vue").default
+);
+Vue.component(
+    "modal-sponsor",
+    require("./components/Sponsors/Modal.vue").default
+);
 
 // Utilities
 Vue.component("flash", require("./components/Utilities/Flash.vue").default);
