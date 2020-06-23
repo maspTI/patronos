@@ -22,6 +22,9 @@ Route::resource('categories', 'CategoryController')->middleware(['auth']);
 // Patron Routes
 Route::resource('patrons', 'PatronController')->middleware(['auth']);
 
+// Sponsor Routes
+Route::resource('sponsors', 'SponsorController')->middleware(['auth']);
+
 // Auth Routes
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

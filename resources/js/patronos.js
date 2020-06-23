@@ -70,6 +70,12 @@ Vue.component(
     require("./components/Secretaries/CreateUpdate.vue").default
 );
 
+// Sponsors
+Vue.component(
+    "create-update-sponsor-component",
+    require("./components/Sponsors/CreateUpdate.vue").default
+);
+
 // Utilities
 Vue.component("flash", require("./components/Utilities/Flash.vue").default);
 Vue.component(

@@ -5,9 +5,9 @@
                 <div class="col-md-12">
                     <h4>Email(s)</h4>
                 </div>
-                <div class="col-md-12 d-flex justify-content-around align-items-center flex-wrap">
+                <div class="col-md-12 d-flex justify-content-center align-items-center flex-wrap">
                     @foreach($patron->emails as $email)
-                    <span class="text-capitalize">
+                    <span class="text-capitalize mx-2">
                         {{ $email['name'] }}:&nbsp;
                         <a href="mailto:{{ $email['content'] }}" class="text-lowercase text-muted">{{ $email['content'] }}</a>
                     </span>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-12 d-flex justify-content-around align-items-center flex-wrap">
                     @foreach($patron->phones as $phone)
-                    <span class="text-capitalize d-flex align-items-center">
+                    <span class="text-capitalize d-flex align-items-center mx-2">
                         {{ $phone['name'] }}:&nbsp;
                         <img class="flag" src="{{ $phone['country']['flag'] }}" alt="{{ $phone['country']['name'] }}"/>
                         <a href="tel:{{ $phone['phone'] }}" class="text-lowercase text-muted">{{ $phone['phone'] }}</a>

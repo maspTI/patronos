@@ -85,6 +85,46 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+
+            [
+                'name' => 'Estratégicos',
+                'email' => '',
+                'applicable_to' => 'sponsor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Patrocinadores Master',
+                'email' => '',
+                'applicable_to' => 'sponsor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Patrocinadores',
+                'email' => '',
+                'applicable_to' => 'sponsor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Empresa Amiga',
+                'email' => '',
+                'applicable_to' => 'sponsor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Apoiador Cultural',
+                'email' => '',
+                'applicable_to' => 'sponsor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
     }
 }

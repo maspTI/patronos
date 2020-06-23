@@ -19,6 +19,16 @@
                     <p>Adicionar Pessoa Física</p>
                 </a>
             </li>
+            <li class="nav-item {{ url()->current() == route('sponsors.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('sponsors.index') }}">
+                    <p>Pessoa Jurídica</p>
+                </a>
+            </li>
+            <li class="nav-item {{ url()->current() == route('sponsors.create') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('sponsors.create') }}">
+                    <p>Adicionar Pessoa Jurídica</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
