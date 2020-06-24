@@ -56,24 +56,25 @@ class PatronController extends Controller
             'occupation' => strtolower(request('occupation')),
             'company' => strtolower(request('company')),
             'pointed_by' => strtolower(request('pointed_by')),
-            'phones' => request('phones'),
-            'emails' => request('emails'),
-            'social_medias' => request('social_medias'),
-            'secretaries' => request('secretaries'),
-            'dependents' => request('dependents'),
-            'addresses' => request('addresses'),
-            'marital_status' => request('marital_status'),
+            'phones' => json_decode(request('phones')),
+            'emails' => json_decode(request('emails')),
+            'social_medias' => json_decode(request('social_medias')),
+            'secretaries' => json_decode(request('secretaries')),
+            'dependents' => json_decode(request('dependents')),
+            'addresses' => json_decode(request('addresses')),
+            'marital_status' => json_decode(request('marital_status')),
         ]);
 
         if (request('has_copatron')) {
+            $copatron = json_decode(request('copatron'));
             $patron->copatron()->create([
-                'name' => request('copatron')['name'],
-                'email' => request('copatron')['email'],
-                'birthday' => new Carbon(request('copatron')['birthday']),
+                'name' => $copatron->name,
+                'email' => $copatron->email,
+                'birthday' => new Carbon($copatron->birthday),
             ]);
         }
 
-        $patron->categories()->attach(collect(request('categories'))->pluck('id')->all());
+        $patron->categories()->attach(collect(json_decode(request('categories')))->pluck('id')->all());
     }
 
     /**
@@ -127,22 +128,24 @@ class PatronController extends Controller
             'occupation' => strtolower(request('occupation')),
             'company' => strtolower(request('company')),
             'pointed_by' => strtolower(request('pointed_by')),
-            'phones' => request('phones'),
-            'emails' => request('emails'),
-            'social_medias' => request('social_medias'),
-            'secretaries' => request('secretaries'),
-            'dependents' => request('dependents'),
-            'addresses' => request('addresses'),
-            'marital_status' => request('marital_status'),
+            'phones' => json_decode(request('phones')),
+            'emails' => json_decode(request('emails')),
+            'social_medias' => json_decode(request('social_medias')),
+            'secretaries' => json_decode(request('secretaries')),
+            'dependents' => json_decode(request('dependents')),
+            'addresses' => json_decode(request('addresses')),
+            'marital_status' => json_decode(request('marital_status')),
         ]);
 
         $patron->fresh();
 
         if ($patron->copatron && request('has_copatron')) {
+            $copatron = json_decode(request('copatron'));
+
             $patron->copatron()->update([
-                'name' => request('copatron')['name'],
-                'email' => request('copatron')['email'],
-                'birthday' => new Carbon(request('copatron')['birthday']),
+                'name' => $copatron->name,
+                'email' => $copatron->email,
+                'birthday' => new Carbon($copatron->birthday),
             ]);
             return;
         }
@@ -153,10 +156,11 @@ class PatronController extends Controller
         }
 
         if (!$patron->copatron && request('has_copatron')) {
+            $copatron = json_decode(request('copatron'));
             $patron->copatron()->create([
-                'name' => request('copatron')['name'],
-                'email' => request('copatron')['email'],
-                'birthday' => new Carbon(request('copatron')['birthday']),
+                'name' => $copatron->name,
+                'email' => $copatron->email,
+                'birthday' => new Carbon($copatron->birthday),
             ]);
             return;
         }

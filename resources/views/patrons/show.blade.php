@@ -1,13 +1,13 @@
 @extends('layouts.dashboard.index')
 
-@section('title', '| ' . $patron->name)
+@section('title', '| ' . Str::title($patron->name))
 
 @section('content')
 <div class="container-flui">
     <div class="row">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header card-header-primary">
+                <div class="card-header card-header-primary text-capitalize">
                     <h4 class="card-title">{{ $patron->name }}</h4>
                     <p class="card-category">{{ $patron->occupation }}</p>
                 </div>

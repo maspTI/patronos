@@ -62,6 +62,7 @@ export default {
     data() {
         return {
             image: null,
+            file: null,
             cropped: false,
         };
     },
@@ -81,6 +82,7 @@ export default {
                 reader.readAsDataURL(input.files[0]);
                 document.querySelector("#anexo_nome").innerText =
                     event.target.files[0].name;
+                this.file = event.target.files[0];
             }
         },
         onChange({ coordinates, canvas }) {
@@ -92,6 +94,7 @@ export default {
                 const { coordinates, canvas } = this.$refs.cropper.getResult();
                 this.image = canvas.toDataURL();
                 window.events.$emit("avatar", this.image);
+                window.events.$emit("logo", this.file);
                 return;
             }
             window.flash("Esolha uma imagem.", "danger");

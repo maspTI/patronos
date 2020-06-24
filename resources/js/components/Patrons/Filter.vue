@@ -98,7 +98,7 @@ export default {
         },
     },
     created() {
-        this.fetch("categories", "search=patron");
+        this.fetch("categories", "search=patron&status=1");
     },
 };
 </script>

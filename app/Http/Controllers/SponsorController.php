@@ -7,10 +7,12 @@ use App\Sponsor;
 use App\Category;
 use App\Rules\CNPJ;
 use Illuminate\Http\Request;
+use App\Jobs\GoogleDriveUpload;
 use Illuminate\Validation\Rule;
 
 class SponsorController extends Controller
 {
+    protected $directory = 'logos';
     /**
      * Display a listing of the resource.
      *
@@ -49,18 +51,18 @@ class SponsorController extends Controller
         $this->validateRquest($request);
 
         Sponsor::create([
-            'category_id' => request('category')['id'],
-            'project_id' => request('project')['id'],
+            'category_id' => json_decode(request('category'))->id,
+            'project_id' => json_decode(request('project'))->id,
             'avatar' => request('avatar'),
-            // 'logo' => request('logo'),
+            'logo' => request()->file('logo') !== null ? $this->logo($request) : null,
             'razao_social' => strtolower(request('razao_social')),
             'nome_fantasia' => strtolower(request('nome_fantasia')),
             'cnpj' => request('cnpj'),
             'occupation_area' => strtolower(request('occupation_area')),
-            'proxy' => request('proxy'),
-            'social_medias' => request('social_medias'),
-            'addresses' => request('addresses'),
-            'people_to_contact' => request('people_to_contact'),
+            'proxy' => json_decode(request('proxy')),
+            'social_medias' => json_decode(request('social_medias')),
+            'addresses' => json_decode(request('addresses')),
+            'people_to_contact' => json_decode(request('people_to_contact')),
         ]);
     }
 
@@ -72,7 +74,7 @@ class SponsorController extends Controller
      */
     public function show(Sponsor $sponsor)
     {
-        //
+        return view('sponsors.show')->with(['sponsor' => $sponsor]);
     }
 
     /**
@@ -107,18 +109,18 @@ class SponsorController extends Controller
         $this->validateRquest($request, $sponsor);
 
         $sponsor->update([
-            'category_id' => request('category')['id'],
-            'project_id' => request('project')['id'],
+            'category_id' => json_decode(request('category'))->id,
+            'project_id' => json_decode(request('project'))->id,
             'avatar' => request('avatar'),
-            // 'logo' => request('logo'),
+            'logo' => request()->file('logo') !== null ? $this->logo($request) : null,
             'razao_social' => strtolower(request('razao_social')),
             'nome_fantasia' => strtolower(request('nome_fantasia')),
             'cnpj' => request('cnpj'),
             'occupation_area' => strtolower(request('occupation_area')),
-            'proxy' => request('proxy'),
-            'social_medias' => request('social_medias'),
-            'addresses' => request('addresses'),
-            'people_to_contact' => request('people_to_contact'),
+            'proxy' => json_decode(request('proxy')),
+            'social_medias' => json_decode(request('social_medias')),
+            'addresses' => json_decode(request('addresses')),
+            'people_to_contact' => json_decode(request('people_to_contact')),
         ]);
     }
 
@@ -156,5 +158,18 @@ class SponsorController extends Controller
             'addresses' => 'required',
             'people_to_contact' => 'required',
         ]);
+    }
+
+    /**
+     *
+     */
+    protected function logo(Request $request)
+    {
+        $fileName = time() . '.' . request()->file('logo')->getClientOriginalExtension();
+
+        request()->file('logo')->move(public_path($this->directory), $fileName);
+        GoogleDriveUpload::dispatch($fileName);
+
+        return $fileName;
     }
 }

@@ -1,6 +1,7 @@
 <template>
     <form
         class="container-fluid"
+        enctype="multipart/form-data"
         @keydown="form.errors.clear($event.target.name)"
         @submit.prevent="send"
     >
@@ -354,7 +355,7 @@ export default {
                     .then((result) => {
                         window.events.$emit("loading", false);
                         window.flash(this.message);
-                        window.location = "/sponsors";
+                        // window.location = "/sponsors";
                     })
                     .catch((errors) => {
                         window.events.$emit("loading", false);
@@ -376,6 +377,11 @@ export default {
 
         window.events.$on("remove-avatar", () => {
             this.form.avatar = "";
+            this.form.logo = "";
+        });
+
+        window.events.$on("logo", (logo) => {
+            this.form.logo = logo;
         });
 
         window.events.$on("remove-social_media", (removedSocial_media) => {

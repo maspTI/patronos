@@ -8,7 +8,7 @@
                         type="text"
                         name="copatron-name"
                         id="copatron-name"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.name"
                     />
                 </div>

@@ -20,10 +20,17 @@ class Form {
      * Fetch all relevant data for the form.
      */
     data() {
-        let data = {};
+        let data = new FormData();
 
         for (let property in this.originalData) {
-            data[property] = this[property];
+            if (
+                typeof this[property] === "object" &&
+                !("lastModifiedDate" in this[property])
+            ) {
+                data.set(property, JSON.stringify(this[property]));
+            } else {
+                data.set(property, this[property]);
+            }
         }
 
         return data;
