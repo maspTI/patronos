@@ -1,19 +1,19 @@
 <template>
     <div
         class="modal fade"
-        id="view_patron"
+        id="view_sponsor"
         tabindex="-1"
         role="dialog"
-        aria-labelledby="view_patron"
+        aria-labelledby="view_sponsor"
         aria-hidden="true"
     >
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content" v-if="patron.hasOwnProperty('id')">
+            <div class="modal-content" v-if="sponsor.hasOwnProperty('id')">
                 <div class="modal-header">
                     <h5
                         class="modal-title text-capitalize"
-                        id="view_patron"
-                        v-text="`${patron.name}`"
+                        id="view_sponsor"
+                        v-text="`${sponsor.razao_social}`"
                     ></h5>
                     <button
                         type="button"
@@ -28,59 +28,47 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="container-fluid">
-                                    <div class="row border">
-                                        <div class="col-md-12">
-                                            <h4>Email(s)</h4>
-                                        </div>
-                                        <div
-                                            class="col-md-12 d-flex justify-content-around align-items-center flex-wrap"
-                                        >
-                                            <span
-                                                class="text-capitalize"
-                                                v-for="email in patron.emails"
-                                                :key="email.id"
-                                                >{{ email.name }}:&nbsp;<a
-                                                    :href="
-                                                        `mailto:${email.content}`
-                                                    "
-                                                    class="text-lowercase text-muted"
-                                                    v-text="email.content"
-                                                ></a
-                                            ></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="container-fluid">
-                                    <div class="row border">
-                                        <div class="col-md-12">
-                                            <h4>Telefones</h4>
-                                        </div>
-                                        <div
-                                            class="col-md-12 d-flex justify-content-around align-items-center flex-wrap"
-                                        >
-                                            <span
-                                                class="text-capitalize d-flex align-items-center"
-                                                v-for="phone in patron.phones"
-                                                :key="phone.id"
-                                                >{{ phone.name }}:&nbsp;
-                                                <img
-                                                    class="flag"
-                                                    :src="phone.country.flag"
-                                                    alt="Bandeira do país"/><a
-                                                    :href="
-                                                        `tel:${phone.content}`
-                                                    "
-                                                    class="text-lowercase text-muted"
-                                                    v-text="phone.phone"
-                                                ></a
-                                            ></span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div
+                                class="col-md-12 d-flex flex-wrap justify-content-center align-items-center"
+                            >
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="
+                                        `Razao Social: ${sponsor.razao_social}`
+                                    "
+                                ></span>
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="
+                                        `Nome Fantasia: ${sponsor.nome_fantasia}`
+                                    "
+                                ></span>
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="`CNPJ: ${sponsor.cnpj}`"
+                                ></span>
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="
+                                        `Categoria: ${sponsor.category.name}`
+                                    "
+                                ></span>
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="`Projeto: ${sponsor.project.name}`"
+                                ></span>
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="
+                                        `Area de Atuacao: ${sponsor.occupation_area}`
+                                    "
+                                ></span>
+                                <span
+                                    class="text-capitalize mx-3"
+                                    v-text="
+                                        `Responsavel Legal: ${sponsor.proxy.name}`
+                                    "
+                                ></span>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -94,7 +82,7 @@
                                             <div class="row">
                                                 <div
                                                     class="col-md-12 d-flex flex-wrap justify-content-around align-itens-center border mt-2"
-                                                    v-for="address in patron.addresses"
+                                                    v-for="address in sponsor.addresses"
                                                     :key="address.id"
                                                 >
                                                     <span
@@ -162,19 +150,21 @@
                 </div>
                 <div class="modal-footer">
                     <a
-                        :href="`/patrons/${patron.id}`"
+                        :href="`/sponsors/${sponsor.id}`"
                         class="btn btn-success"
                         data-toggle="tooltip"
                         data-placement="top"
-                        :title="`Visualizar ${patron.name.toUpperCase()}`"
+                        :title="
+                            `Visualizar ${sponsor.razao_social.toUpperCase()}`
+                        "
                         ><i class="fas fa-glasses"></i
                     ></a>
                     <a
-                        :href="`/patrons/${patron.id}/edit`"
+                        :href="`/sponsors/${sponsor.id}/edit`"
                         class="ml-2 btn btn-warning"
                         data-toggle="tooltip"
                         data-placement="top"
-                        :title="`Editar ${patron.name.toUpperCase()}`"
+                        :title="`Editar ${sponsor.razao_social.toUpperCase()}`"
                         ><i class="far fa-edit"></i
                     ></a>
                 </div>
@@ -187,17 +177,12 @@ import Form from "../../form-validation/Form";
 export default {
     data() {
         return {
-            patron: {},
+            sponsor: {},
         };
     },
-    computed: {
-        bought_at() {
-            return window.moment(this.patron.bought_at).format("DD/MM/YYYY");
-        },
-    },
     created() {
-        window.events.$on("quick_view", (patron) => {
-            this.patron = patron;
+        window.events.$on("quick_view", (sponsor) => {
+            this.sponsor = sponsor;
         });
     },
 };

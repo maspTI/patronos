@@ -7,6 +7,7 @@ use App\Sponsor;
 use App\Category;
 use App\Rules\CNPJ;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SponsorController extends Controller
 {
@@ -82,7 +83,12 @@ class SponsorController extends Controller
      */
     public function edit(Sponsor $sponsor)
     {
-        //
+        $sponsor = Sponsor::whereId($sponsor->id)->with(['category', 'project'])->first();
+        return view('sponsors.edit')->with([
+            'sponsor' => $sponsor,
+            'categories' => Category::where('applicable_to', 'sponsor')->get(),
+            'projects' => Project::get()
+        ]);
     }
 
     /**
@@ -94,7 +100,26 @@ class SponsorController extends Controller
      */
     public function update(Request $request, Sponsor $sponsor)
     {
-        //
+        if (request()->has('change_status')) {
+            return $sponsor->changeStatus()->fresh();
+        }
+
+        $this->validateRquest($request, $sponsor);
+
+        $sponsor->update([
+            'category_id' => request('category')['id'],
+            'project_id' => request('project')['id'],
+            'avatar' => request('avatar'),
+            // 'logo' => request('logo'),
+            'razao_social' => strtolower(request('razao_social')),
+            'nome_fantasia' => strtolower(request('nome_fantasia')),
+            'cnpj' => request('cnpj'),
+            'occupation_area' => strtolower(request('occupation_area')),
+            'proxy' => request('proxy'),
+            'social_medias' => request('social_medias'),
+            'addresses' => request('addresses'),
+            'people_to_contact' => request('people_to_contact'),
+        ]);
     }
 
     /**

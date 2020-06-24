@@ -13,7 +13,8 @@ class Sponsor extends Model
         'category_id','project_id','razao_social',
         'nome_fantasia','cnpj','occupation_area',
         'proxy','social_medias','addresses',
-        'people_to_contact', 'avatar', 'logo'
+        'people_to_contact', 'avatar', 'logo',
+        'status'
     ];
 
     protected $casts = [
@@ -37,6 +38,18 @@ class Sponsor extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     *
+     */
+    public function changeStatus()
+    {
+        $this->update([
+            'status' =>  $this->status ? 0 : 1
+        ]);
+
+        return $this;
     }
 
     /**

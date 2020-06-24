@@ -6,7 +6,7 @@
                     <label for="">Nome</label>
                     <input
                         type="text"
-                        class="form-control"
+                        class="form-control text-capitalize"
                         v-model="form.name"
                     />
                 </div>

@@ -190,11 +190,6 @@ export default {
             patron: {},
         };
     },
-    computed: {
-        bought_at() {
-            return window.moment(this.patron.bought_at).format("DD/MM/YYYY");
-        },
-    },
     created() {
         window.events.$on("quick_view", (patron) => {
             this.patron = patron;
