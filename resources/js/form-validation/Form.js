@@ -19,19 +19,23 @@ class Form {
     /**
      * Fetch all relevant data for the form.
      */
-    data() {
+    data(requestType) {
         let data = new FormData();
 
         for (let property in this.originalData) {
-            if (
-                typeof this[property] === "object" &&
-                !("lastModifiedDate" in this[property])
-            ) {
-                data.set(property, JSON.stringify(this[property]));
-            } else {
-                data.set(property, this[property]);
+            if (this[property] != null) {
+                if (
+                    typeof this[property] === "object" &&
+                    !("lastModified" in this[property])
+                ) {
+                    data.set(property, JSON.stringify(this[property]));
+                } else {
+                    data.set(property, this[property]);
+                }
             }
         }
+
+        data.set("_method", requestType);
 
         return data;
     }
@@ -91,15 +95,14 @@ class Form {
      */
     submit(requestType, url) {
         return new Promise((resolve, reject) => {
-            axios[requestType](url, this.data())
+            axios
+                .post(url, this.data(requestType))
                 .then((response) => {
                     this.onSuccess(response.data);
-
                     resolve(response.data);
                 })
                 .catch((error) => {
                     this.onFail(error.response.data.errors);
-
                     reject(error.response.data.errors);
                 });
         });

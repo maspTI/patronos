@@ -50,7 +50,7 @@ class PatronController extends Controller
         $patron = Patron::create([
             'avatar' => request('avatar'),
             'name' => strtolower(request('name')),
-            'birthday' => new Carbon(request('birthday')),
+            'birthday' => new Carbon(json_decode(request('birthday'))),
             'cpf' => request('cpf'),
             'bio' => strtolower(request('bio')),
             'occupation' => strtolower(request('occupation')),
@@ -70,7 +70,7 @@ class PatronController extends Controller
             $patron->copatron()->create([
                 'name' => $copatron->name,
                 'email' => $copatron->email,
-                'birthday' => new Carbon($copatron->birthday),
+                'birthday' => new Carbon(json_decode($copatron->birthday)),
             ]);
         }
 
@@ -122,7 +122,7 @@ class PatronController extends Controller
         $patron->update([
             'avatar' => request('avatar'),
             'name' => strtolower(request('name')),
-            'birthday' => new Carbon(request('birthday')),
+            'birthday' => new Carbon(json_decode(request('birthday'))),
             'cpf' => request('cpf'),
             'bio' => strtolower(request('bio')),
             'occupation' => strtolower(request('occupation')),
@@ -145,7 +145,7 @@ class PatronController extends Controller
             $patron->copatron()->update([
                 'name' => $copatron->name,
                 'email' => $copatron->email,
-                'birthday' => new Carbon($copatron->birthday),
+                'birthday' => new Carbon(json_decode($copatron->birthday)),
             ]);
             return;
         }
@@ -180,7 +180,7 @@ class PatronController extends Controller
     /**
      *
      */
-    public function validateRequest(Request $request, Patron $patron = null)
+    protected function validateRequest(Request $request, Patron $patron = null)
     {
         request()->validate([
             'avatar' =>  "nullable",

@@ -1,6 +1,7 @@
 <template>
     <form
         class="container-fluid"
+        enctype="multipart/form-data"
         @keydown="form.errors.clear($event.target.name)"
         @submit.prevent="send"
     >
@@ -586,6 +587,7 @@ export default {
                     })
                     .catch((errors) => {
                         window.events.$emit("loading", false);
+                        console.log(errors);
                         window.flash("Algo deu errado.", "danger");
                     });
             },
@@ -597,9 +599,9 @@ export default {
         if (this.patron) {
             if (this.patron.copatron) {
                 this.patron.has_copatron = true;
-                this.patron.copatron.birthday = moment(
+                this.patron.copatron.birthday = new Date(
                     this.patron.copatron.birthday
-                ).format();
+                );
             } else {
                 this.patron.has_copatron = false;
                 this.patron.copatron = {
@@ -608,7 +610,7 @@ export default {
                     birthday: "",
                 };
             }
-            this.patron.birthday = moment(this.patron.birthday).format();
+            this.patron.birthday = new Date(this.patron.birthday);
             this.form = new Form(this.patron);
         }
 

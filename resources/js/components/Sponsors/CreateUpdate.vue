@@ -355,7 +355,7 @@ export default {
                     .then((result) => {
                         window.events.$emit("loading", false);
                         window.flash(this.message);
-                        // window.location = "/sponsors";
+                        window.location = "/sponsors";
                     })
                     .catch((errors) => {
                         window.events.$emit("loading", false);

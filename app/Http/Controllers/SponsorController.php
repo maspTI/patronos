@@ -112,7 +112,7 @@ class SponsorController extends Controller
             'category_id' => json_decode(request('category'))->id,
             'project_id' => json_decode(request('project'))->id,
             'avatar' => request('avatar'),
-            'logo' => request()->file('logo') !== null ? $this->logo($request) : null,
+            'logo' => request()->file('logo') !== null ? $this->logo($request) : request('logo'),
             'razao_social' => strtolower(request('razao_social')),
             'nome_fantasia' => strtolower(request('nome_fantasia')),
             'cnpj' => request('cnpj'),
@@ -138,7 +138,7 @@ class SponsorController extends Controller
     /**
      *
      */
-    public function validateRquest(Request $request, Sponsor $sponsor = null)
+    protected function validateRquest(Request $request, Sponsor $sponsor = null)
     {
         request()->validate([
             'avatar' => 'nullable',
