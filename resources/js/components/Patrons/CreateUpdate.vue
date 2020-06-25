@@ -599,9 +599,9 @@ export default {
         if (this.patron) {
             if (this.patron.copatron) {
                 this.patron.has_copatron = true;
-                this.patron.copatron.birthday = new Date(
+                this.patron.copatron.birthday = moment(
                     this.patron.copatron.birthday
-                );
+                ).format();
             } else {
                 this.patron.has_copatron = false;
                 this.patron.copatron = {
@@ -610,7 +610,7 @@ export default {
                     birthday: "",
                 };
             }
-            this.patron.birthday = new Date(this.patron.birthday);
+            this.patron.birthday = moment(this.patron.birthday).format();
             this.form = new Form(this.patron);
         }
 

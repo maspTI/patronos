@@ -70,7 +70,7 @@ class PatronController extends Controller
             $patron->copatron()->create([
                 'name' => $copatron->name,
                 'email' => $copatron->email,
-                'birthday' => new Carbon(json_decode($copatron->birthday)),
+                'birthday' => new Carbon($copatron->birthday),
             ]);
         }
 
@@ -141,11 +141,10 @@ class PatronController extends Controller
 
         if ($patron->copatron && request('has_copatron')) {
             $copatron = json_decode(request('copatron'));
-
             $patron->copatron()->update([
                 'name' => $copatron->name,
                 'email' => $copatron->email,
-                'birthday' => new Carbon(json_decode($copatron->birthday)),
+                'birthday' => new Carbon($copatron->birthday),
             ]);
             return;
         }

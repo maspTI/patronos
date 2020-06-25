@@ -14,7 +14,7 @@ class Copatron extends Model
      */
     public function getBirthdayAttribute($value)
     {
-        return new Carbon($value);
+        return Carbon::create($value, 'America/Sao_Paulo');
     }
 
     /**
