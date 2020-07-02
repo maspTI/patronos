@@ -74,7 +74,7 @@ class PatronController extends Controller
             ]);
         }
 
-        $patron->categories()->attach(collect(json_decode(request('categories')))->pluck('id')->all());
+        $patron->attachCategories(collect(json_decode(request('categories')))->pluck('id')->all());
     }
 
     /**
@@ -138,6 +138,9 @@ class PatronController extends Controller
         ]);
 
         $patron->fresh();
+
+        $patron->detachCategories();
+        $patron->attachCategories(collect(json_decode(request('categories')))->pluck('id')->all());
 
         if ($patron->copatron && request('has_copatron')) {
             $copatron = json_decode(request('copatron'));

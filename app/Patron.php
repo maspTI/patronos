@@ -84,6 +84,24 @@ class Patron extends Model
     /**
      *
      */
+    public function detachCategories()
+    {
+        $this->categories()->detach($this->categories()->pluck('id')->all());
+        return $this;
+    }
+
+    /**
+     *
+     */
+    public function attachCategories(array $categoriesIds)
+    {
+        $this->categories()->attach($categoriesIds);
+        return $this;
+    }
+
+    /**
+     *
+     */
     public function search(array $search = null)
     {
         return $this->where(function ($query) use ($search) {

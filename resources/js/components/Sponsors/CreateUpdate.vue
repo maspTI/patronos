@@ -135,7 +135,10 @@
                     <div class="col-md-12">
                         <h4>Responsável Legal</h4>
                     </div>
-                    <create-update-copatron-component :copatron="form.proxy" />
+                    <create-update-copatron-component
+                        :copatron="form.proxy"
+                        :not_birthday="true"
+                    />
                 </div>
             </div>
             <div class="col-md-12"><hr /></div>
@@ -281,7 +284,6 @@ export default {
                 proxy: {
                     name: "",
                     email: "",
-                    birthday: "",
                 },
             }),
         };

@@ -25,7 +25,7 @@
                     />
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" v-if="!not_birthday">
                 <div class="form-group bmd-form-group">
                     <label for="">Data Nascimento</label>
                     <date-picker
@@ -43,7 +43,7 @@
 <script>
 import DatePicker from "vue2-datepicker";
 export default {
-    props: ["copatron"],
+    props: ["copatron", "not_birthday"],
     data() {
         return {
             form: this.copatron,
