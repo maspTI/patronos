@@ -9,7 +9,15 @@ require("./bootstrap");
 window.Vue = require("vue");
 
 import VueTheMask from "vue-the-mask";
+import money from "v-money";
 window.Vue.use(VueTheMask);
+window.Vue.use(money, {
+    precision: 2,
+    prefix: "R$ ",
+    masked: false,
+    decimal: ",",
+    thousands: ".",
+});
 
 window.events = new Vue();
 
@@ -44,6 +52,12 @@ Vue.component(
 Vue.component(
     "create-update-copatron-component",
     require("./components/Copatrons/CreateUpdate.vue").default
+);
+
+// Payments
+Vue.component(
+    "create-update-payment-component",
+    require("./components/Payments/CreateUpdate.vue").default
 );
 
 // Patrons

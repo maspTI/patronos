@@ -43,6 +43,14 @@ class Sponsor extends Model
     /**
      *
      */
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+    /**
+     *
+     */
     public function changeStatus()
     {
         $this->update([

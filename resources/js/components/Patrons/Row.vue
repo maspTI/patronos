@@ -58,6 +58,15 @@
                     :title="`Editar ${patron.name.toUpperCase()}`"
                     ><i class="far fa-edit"></i
                 ></a>
+                <a
+                    :href="`/payments/create?patron=${patron.id}`"
+                    class="btn btn-secondary"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    :title="`Criar Pagamento para ${patron.name.toUpperCase()}`"
+                    v-if="patron.status"
+                    ><i class="fas fa-shopping-cart"></i
+                ></a>
             </div>
         </td>
     </tr>

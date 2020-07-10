@@ -29,6 +29,11 @@
                     <p>Adicionar Pessoa Jurídica</p>
                 </a>
             </li>
+            <li class="nav-item {{ url()->current() == route('payments.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('payments.index') }}">
+                    <p>Pagamentos</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

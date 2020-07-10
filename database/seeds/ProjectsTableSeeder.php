@@ -15,10 +15,34 @@ class ProjectsTableSeeder extends Seeder
     {
         Project::insert([
             [
-                'name' => 'Lei de Incentivo a Cultura',
+                'name' => 'Institucional',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-            ]
+            ],
+
+            [
+                'name' => 'Exposições',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Eventos',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Educação',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+
+            [
+                'name' => 'Preservação do Patrimônio (Centro de Restauro)',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ]);
     }
 }

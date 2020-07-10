@@ -68,6 +68,17 @@
                     :title="`Editar ${sponsor.nome_fantasia.toUpperCase()}`"
                     ><i class="far fa-edit"></i
                 ></a>
+                <a
+                    :href="`/payments/create?sponsor=${sponsor.id}`"
+                    class="btn btn-secondary"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    :title="
+                        `Criar Pagamento para ${sponsor.nome_fantasia.toUpperCase()}`
+                    "
+                    v-if="sponsor.status"
+                    ><i class="fas fa-shopping-cart"></i
+                ></a>
             </div>
         </td>
     </tr>

@@ -27,7 +27,7 @@ class CreateSponsorsTable extends Migration
             $table->json('addresses');
             $table->json('social_medias')->nullable();
             $table->json('people_to_contact');
-            $table->integer('status')->default(1);
+            $table->integer('status')->default(1); // 1 => ativo; 0 => inativo
             $table->softDeletes();
             $table->timestamps();
 

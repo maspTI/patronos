@@ -30,7 +30,7 @@ class CreatePatronsTable extends Migration
             $table->json('addresses')->nullable();
             $table->string('pointed_by')->nullable();
             $table->longText('bio')->nullable();
-            $table->integer('status')->default(1);
+            $table->integer('status')->default(1); // 1 => ativo; 0 => inativo
             $table->softDeletes();
             $table->timestamps();
         });
