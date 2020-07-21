@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Patron;
 use App\Payment;
 use App\Sponsor;
 use App\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Traits\UploadFileToDrive;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -159,5 +162,27 @@ class PaymentController extends Controller
             'due_date' => 'required|date',
             'payment_info' => 'required',
         ]);
+    }
+
+    public function downloadRecipt($fileName)
+    {
+        try {
+            $dir = '/';
+            $recursive = false;
+            $contents = collect(Storage::cloud()->listContents($dir, $recursive));
+            $file = $contents
+                ->where('type', '=', 'file')
+                ->where('filename', '=', pathinfo($fileName, PATHINFO_FILENAME))
+                ->where('extension', '=', pathinfo($fileName, PATHINFO_EXTENSION))
+                ->first();
+            $rawData = Storage::cloud()->get($file['path']);
+
+            return response($rawData, 200)
+                ->header('ContentType', $file['mimetype'])
+                ->header('Content-Disposition', "attachment; filename=$fileName");
+        } catch (Exception $e) {
+            $file = public_path($this->directory) . $fileName; // Windows Server
+            return Response::download($file);
+        }
     }
 }

@@ -47,7 +47,10 @@
                         >Escolha um arquivo</label
                     >
                 </div>
-                <a href="" class="btn btn-warning mx-2" v-if="parcel.recipt"
+                <a
+                    :href="'/payments/recipt/' + parcel.recipt"
+                    class="btn btn-warning mx-2"
+                    v-if="parcel.recipt"
                     ><i class="fas fa-download"></i
                 ></a>
                 <button
