@@ -31,6 +31,8 @@ window.moment = require("moment");
 
 window.Chart = require("chart.js");
 
+window.currencyFormatter = require("currency-formatter");
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -58,6 +60,14 @@ Vue.component(
 Vue.component(
     "create-update-payment-component",
     require("./components/Payments/CreateUpdate.vue").default
+);
+Vue.component(
+    "index-payment-component",
+    require("./components/Payments/Index.vue").default
+);
+Vue.component(
+    "modal-payment",
+    require("./components/Payments/Modal.vue").default
 );
 
 // Patrons

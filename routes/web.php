@@ -24,6 +24,7 @@ Route::resource('patrons', 'PatronController')->middleware(['auth']);
 
 // Payment Routes
 Route::resource('payments', 'PaymentController')->middleware(['auth']);
+Route::patch('payments/{payment}/parcel/{parcel}', 'PaymentController@updateParcel')->middleware(['auth'])->name('payments.parcel.update');
 
 // Project Routes
 Route::resource('projects', 'ProjectController')->middleware(['auth']);

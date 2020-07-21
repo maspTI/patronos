@@ -6,10 +6,15 @@ use App\Patron;
 use App\Payment;
 use App\Sponsor;
 use App\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Traits\UploadFileToDrive;
 
 class PaymentController extends Controller
 {
+    use UploadFileToDrive;
+
+    protected $directory = 'recipts';
     /**
      * Display a listing of the resource.
      *
@@ -65,11 +70,11 @@ class PaymentController extends Controller
 
         $person->payments()->create([
             'category_id' => json_decode(request('category'))->id,
-            'type' => request('type'),
+            'type' => json_decode(request('type')),
             'payment_method' => json_decode(request('payment_method'))->value,
-            'value' => request('value'),
+            'value' => json_decode(request('value')),
             'due_date' => request('due_date'),
-            'payment_info' => request('payment_info'),
+            'payment_info' => json_decode(request('payment_info')),
         ]);
     }
 
@@ -105,6 +110,28 @@ class PaymentController extends Controller
     public function update(Request $request, Payment $payment)
     {
         //
+    }
+
+    /**
+     *
+     */
+    public function updateParcel(Request $request, Payment $payment, $parcelId)
+    {
+        $payment_infoUpdated = [];
+        $paymentInfo = array_map(function ($parcel) use ($parcelId, $request, &$payment_infoUpdated) {
+            if ($parcel['id'] == $parcelId) {
+                $parcel['payment_method'] = json_decode(request('payment_method'));
+                $parcel['recipt'] = request()->file('recipt') !== null ? $this->uploadFile($request) : null;
+                $parcel['status'] = Carbon::now();
+                $payment_infoUpdated = $parcel;
+            }
+            return $parcel;
+        }, $payment->payment_info);
+        $payment->payment_info = $paymentInfo;
+
+        $payment->save();
+
+        return json_encode($payment_infoUpdated);
     }
 
     /**

@@ -24,9 +24,10 @@ class GoogleDriveUpload implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $fileName)
+    public function __construct(string $fileName, string $directory = '')
     {
         $this->fileName = $fileName;
+        $this->directory = $directory == '' ? 'logos' : $directory;
     }
 
     /**

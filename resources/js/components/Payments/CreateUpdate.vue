@@ -132,6 +132,7 @@ export default {
                 payment_method: "",
                 due_date: new Date(),
                 payment_info: [],
+                recipt: "",
             }),
             payment_method: [
                 {
