@@ -15,6 +15,7 @@ class CreateSponsorsTable extends Migration
     {
         Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('patron_id')->nullable()->default(null);
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('project_id');
             $table->longText('avatar')->nullable();
@@ -33,6 +34,7 @@ class CreateSponsorsTable extends Migration
 
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('patron_id')->references('id')->on('patrons');
         });
     }
 
