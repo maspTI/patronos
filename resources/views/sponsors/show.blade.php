@@ -18,6 +18,10 @@
                         @include('sponsors.show.proxy')
 
                         @include('sponsors.show.contact')
+
+                        @if(count($sponsor->payments))
+                        @include('sponsors.show.payments')
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                 </div>

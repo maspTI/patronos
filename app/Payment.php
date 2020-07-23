@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -12,6 +13,14 @@ class Payment extends Model
         'type' => 'array',
         'payment_info' => 'array'
     ];
+
+    /**
+     *
+     */
+    public function getDueDateAttribute($value)
+    {
+        return Carbon::create($value, 'America/Sao_Paulo');
+    }
 
     /**
      *
