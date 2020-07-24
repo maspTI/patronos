@@ -19,6 +19,7 @@ class CreateSponsorsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('project_id');
             $table->longText('avatar')->nullable();
+            $table->text('google_drive_directory')->nullable();
             $table->string('logo')->nullable();
             $table->string('cnpj');
             $table->string('razao_social');

@@ -24,6 +24,7 @@ class CreatePatronsTable extends Migration
             $table->string('company')->nullable();
             $table->json('emails')->nullable();
             $table->json('phones')->nullable();
+            $table->text('google_drive_directory')->nullable();
             $table->json('secretaries')->nullable();
             $table->json('dependents')->nullable();
             $table->json('social_medias')->nullable();
